@@ -9,16 +9,15 @@ class TPQueue {
   struct Ltqueue {
     T value;
     Ltqueue* prev;
-    Ltqueue* next
+    Ltqueue* next;
   };
   Ltqueue* tail;
   Ltqueue* head;
-  TPQueue::Ltqueue* creat(const T&);
+  TPQueue::Ltqueue* create(const T&);
  public:
   TPQueue():head(nullptr), tail(nullptr) {}
   T pop();
   void push(const T&);
-};
 };
 
 struct SYM {
