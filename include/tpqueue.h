@@ -56,7 +56,6 @@ void TPQueue <T>::push(const T& value) {
 
 template<typename T>
 T TPQueue<T>::pop() {
-  if (head && tail) {
       Ltqueue* pass = head->next;
     if (!head) {
       tail = nullptr;
@@ -68,6 +67,5 @@ T TPQueue<T>::pop() {
     delete head;
     head = pass;
     return value;
-  }
-
+}
 #endif  // INCLUDE_TPQUEUE_H_
