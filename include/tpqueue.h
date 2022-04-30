@@ -34,23 +34,6 @@ typename TPQueue<T>::Lqueue* TPQueue<T>::create(const T& value) {
   return mean;
 }
 
-template<typename T>
-T TPQueue<T>::pop() {
-  if (head && tail) {
-    Lqueue* pass = head->next;
-    if (pass) {
-      pass->prev = nullptr;
-    }
-    T value = head->value;
-    delete head;
-    head = pass;
-    if (!head) {
-      tail = nullptr;
-    }
-    return value;
-  }
-}
-
 template < typename T >
 void TPQueue <T>::push(const T& value) {
   Lqueue* pass = head;
@@ -75,5 +58,26 @@ void TPQueue <T>::push(const T& value) {
           pass->prev = mean;
         }
 }
+ 
+template<typename T>
+T TPQueue<T>::pop() {
+    if (head && tail) {
+        Lqueue* pass = head->next;
+        if (pass) {
+            pass->prev = nullptr;
+        }
+        T value = head->value;
+        delete head;
+        head = pass;
+        if (!head) {
+            tail = nullptr;
+        }
+        return value;
+    }
+    else {
+        throw std::string("Hollow=(");
+    }
+}
+
 
 #endif  // INCLUDE_TPQUEUE_H_
