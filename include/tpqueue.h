@@ -69,6 +69,5 @@ T TPQueue<T>::pop() {
     head = pass;
     return value;
   }
-}
 
 #endif  // INCLUDE_TPQUEUE_H_
