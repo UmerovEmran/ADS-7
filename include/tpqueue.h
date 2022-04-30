@@ -39,7 +39,9 @@ T TPQueue<T>::pop() {
       tail = nullptr;
     }
     return value;
-  }
+  } else {
+      throw std::string("Hollow=(");
+    }
 }
 
 template < typename T >
