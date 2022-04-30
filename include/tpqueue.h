@@ -25,23 +25,6 @@ struct SYM {
   int prior;
 };
 
-template<typename T>
-T TPQueue<T>::pop() {
-  if (head && tail) {
-      Ltqueue* pass = head->next;
-    if (!head) {
-      tail = nullptr;
-    }
-    if (pass) {
-      pass->prev = nullptr;
-    }
-    T value = head->value;
-    delete head;
-    head = pass;
-    return value;
-  }
-}
-
 template < typename T >
 void TPQueue <T>::push(const T& value) {
   Ltqueue* pass = head;
@@ -68,6 +51,23 @@ void TPQueue <T>::push(const T& value) {
       mean->prev = pass->prev;
       mean->next = pass;
       pass->prev = mean;
+  }
+}
+
+template<typename T>
+T TPQueue<T>::pop() {
+  if (head && tail) {
+      Ltqueue* pass = head->next;
+    if (!head) {
+      tail = nullptr;
+    }
+    if (pass) {
+      pass->prev = nullptr;
+    }
+    T value = head->value;
+    delete head;
+    head = pass;
+    return value;
   }
 }
 
