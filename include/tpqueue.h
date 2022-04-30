@@ -5,17 +5,17 @@
 
 template<typename T>
 class TPQueue {
- private:
-  struct Ltqueue {
+private:
+  struct Lqueue {
     T value;
-    Ltqueue* prev;
-    Ltqueue* next;
+    Lqueue* next;
+    Lqueue* prev;
   };
-  Ltqueue* tail;
-  Ltqueue* head;
-  TPQueue::Ltqueue* create(const T&);
- public:
-  TPQueue():head(nullptr), tail(nullptr) {}
+  TPQueue::Lqueue* create(const T&);
+  Lqueue* tail;
+  Lqueue* head;
+public:
+  TPQueue() :head(nullptr), tail(nullptr) {}
   T pop();
   void push(const T&);
 };
@@ -26,9 +26,18 @@ struct SYM {
 };
 
 template<typename T>
+typename TPQueue<T>::Lqueue* TPQueue<T>::create(const T& value) {
+  Lqueue* mean = new Lqueue;
+  mean->value = value;
+  mean->next = nullptr;
+  mean->prev = nullptr;
+  return mean;
+}
+
+template<typename T>
 T TPQueue<T>::pop() {
   if (head && tail) {
-    Ltqueue* pass = head->next;
+    Lqueue* pass = head->next;
     if (pass) {
       pass->prev = nullptr;
     }
@@ -39,21 +48,15 @@ T TPQueue<T>::pop() {
       tail = nullptr;
     }
     return value;
-  } else {
-      throw std::string("Hollow=(");
-    }
+  }
 }
 
 template < typename T >
 void TPQueue <T>::push(const T& value) {
-  Ltqueue* pass = head;
-  Ltqueue* mean = create(value);
-  for (bool i = false; i != true; ) {
-    if (pass && pass->value.prior >= value.prior) {
-        pass = pass->next;
-    } else {
-        i = true;
-      }
+  Lqueue* pass = head;
+  Lqueue* mean = create(value);
+  while (pass && pass->value.prior >= value.prior) {
+    pass = pass->next;
   }
   if (!pass && head) {
     tail->next = mean;
@@ -61,16 +64,16 @@ void TPQueue <T>::push(const T& value) {
     tail = mean;
   } else if (!pass && !head) {
       head = tail = mean;
-  } else if (!pass->prev) {
-      head->prev = mean;
-      mean->next = head;
-      head = mean;
-  } else {
-      pass->prev->next = mean;
-      mean->prev = pass->prev;
-      mean->next = pass;
-      pass->prev = mean;
-  }
+    } else if (!pass->prev) {
+        head->prev = mean;
+        mean->next = head;
+        head = mean;
+      } else {
+          pass->prev->next = mean;
+          mean->prev = pass->prev;
+          mean->next = pass;
+          pass->prev = mean;
+        }
 }
 
 #endif  // INCLUDE_TPQUEUE_H_
