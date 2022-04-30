@@ -5,7 +5,7 @@
 
 template<typename T>
 class TPQueue {
-private:
+ private:
   struct Lqueue {
     T value;
     Lqueue* next;
@@ -14,7 +14,7 @@ private:
   TPQueue::Lqueue* create(const T&);
   Lqueue* tail;
   Lqueue* head;
-public:
+ public:
   TPQueue() :head(nullptr), tail(nullptr) {}
   T pop();
   void push(const T&);
@@ -58,7 +58,7 @@ void TPQueue <T>::push(const T& value) {
           pass->prev = mean;
         }
 }
- 
+
 template<typename T>
 T TPQueue<T>::pop() {
     if (head && tail) {
@@ -73,11 +73,9 @@ T TPQueue<T>::pop() {
             tail = nullptr;
         }
         return value;
-    }
-    else {
+    } else {
         throw std::string("Hollow=(");
-    }
+      }
 }
-
 
 #endif  // INCLUDE_TPQUEUE_H_
